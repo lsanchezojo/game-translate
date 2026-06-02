@@ -1,0 +1,43 @@
+name: Build package
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: archlinux:base-devel
+    steps:
+      - name: Instalar herramientas
+        run: pacman -Syu --noconfirm git github-cli
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Usuario de compilación (makepkg no corre como root)
+        run: |
+          useradd -m builder
+          chown -R builder:builder "$GITHUB_WORKSPACE"
+
+      - name: Construir paquete
+        run: sudo -u builder makepkg -f --nodeps --noconfirm
+
+      - name: Subir artefacto (ejecuciones manuales)
+        uses: actions/upload-artifact@v4
+        with:
+          name: game-translate-pkg
+          path: ./*.pkg.tar.zst
+
+      - name: Adjuntar a la Release (en tags)
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" ./*.pkg.tar.zst \
+              --repo "$GITHUB_REPOSITORY" --title "$GITHUB_REF_NAME" --generate-notes \
+          || gh release upload "$GITHUB_REF_NAME" ./*.pkg.tar.zst --clobber --repo "$GITHUB_REPOSITORY"
