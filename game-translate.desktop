@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Game Translate (traducir región)
+Comment=Captura una región de pantalla y la traduce (OCR)
+Exec=game-translate translate
+Icon=preferences-desktop-locale
+Terminal=false
+Categories=Utility;Education;Accessibility;
+Keywords=traducir;translate;ocr;juego;game;

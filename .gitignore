@@ -1,0 +1,6 @@
+# Artefactos de compilación de makepkg
+src/
+pkg/
+*.pkg.tar.zst
+*.pkg.tar.xz
+*.log

@@ -1,0 +1,11 @@
+# Atajos para game-translate.
+# Añade estas líneas a tu config de Hyprland.
+# En dotfiles ML4W: ~/.config/hypr/conf/custom.conf
+# (sintaxis de bind Hyprland 0.55: usa espacios entre modificadores)
+
+# ALT+C        -> seleccionar región y TRADUCIR
+bind = ALT, C, exec, game-translate translate
+# ALT+X        -> seleccionar región y solo OCR (copia el texto original)
+bind = ALT, X, exec, game-translate ocr
+# ALT+SHIFT+C  -> traducir la PANTALLA COMPLETA
+bind = ALT SHIFT, C, exec, game-translate full
