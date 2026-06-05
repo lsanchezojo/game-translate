@@ -47,14 +47,30 @@ game-translate full        # traducir la pantalla completa
 game-translate translate IMAGEN.png   # traducir una imagen ya guardada
 ```
 
-Lo normal es asignarlo a atajos de teclado. Ejemplo para Hyprland (ver
-`hyprland.conf.example`, instalado en `/usr/share/doc/game-translate/`):
+Lo normal es asignarlo a atajos de teclado para seleccionar una región desde
+cualquier ventana y recibir la traducción como notificación. En Hyprland añade
+estas líneas a tu configuración, por ejemplo en `~/.config/hypr/hyprland.conf`.
+Si usas dotfiles ML4W, usa `~/.config/hypr/conf/custom.conf` para no tocar los
+archivos base. También puedes consultar `hyprland.conf.example`, instalado en
+`/usr/share/doc/game-translate/`:
 
 ```conf
 bind = ALT, C, exec, game-translate translate
 bind = ALT, X, exec, game-translate ocr
 bind = ALT SHIFT, C, exec, game-translate full
 ```
+
+Después recarga Hyprland:
+
+```sh
+hyprctl reload
+```
+
+Con esos atajos:
+
+- `ALT+C`: seleccionar región, traducir y mostrar la notificación.
+- `ALT+X`: seleccionar región y copiar solo el OCR.
+- `ALT+SHIFT+C`: traducir la pantalla completa.
 
 ## ⚙️ Configuración
 
